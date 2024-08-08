@@ -1,0 +1,238 @@
+body {
+    background-color: #eff0f5 !important;
+}
+
+#naving {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#naving-top {
+    padding-top: 15px;
+    padding-left: 100px;
+    display: flex;
+    flex-direction: row;
+    background-color: #cf5f1e;
+    color: white;
+    width: 100%;
+}
+
+#naving-top p {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: Roboto-Regular, 'Helvetica Neue', Helvetica, Tahoma, Arial, Sans-serif !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+
+
+#naving-top2 {
+    margin-top: 0;
+    padding-left: 100px;
+    display: flex;
+    flex-direction: row;
+    background-color: #cf5f1e;
+    color: white;
+    width: 100%;
+}
+
+#catergory {
+    color: white;
+    font-family: Roboto-Regular, 'Helvetica Neue', Helvetica, Tahoma, Arial, Sans-serif !important;
+    font-size: 14px !important;
+    font-weight: bolder !important;
+}
+
+.search_input {
+    float: right;
+    padding: 6px;
+    border: none;
+    margin: 5px;
+    width: 746px;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 50%;
+    background-color: #cf5f1e;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #555;
+    /* text-align: center; */
+}
+
+
+li{
+    float: left; 
+    /* text-align: center; */
+}
+
+li a {
+    display: block;
+    color: white;
+    /* text-align: center; */
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+li:first-child a:hover {
+    background-color: #dddddd;
+    color: #000;
+}
+
+.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.navbar li{
+    margin-top: 5px;
+
+}
+
+.navbar button {
+    margin: 5px;
+    float: right;
+}
+
+
+.top {
+    margin-top: 5%;
+    margin-left: 2%;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.login-back {
+    width: 810px;
+    height: 450px;
+    margin-top: 2%;
+    margin-left: 25%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.login-form {
+    /* margin-left: 5%; */
+    /* margin-right: 5%; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.login-form input[type=text] {
+    float: right;
+    padding: 6px;
+    font-size: 12px;
+    color: dedcdc;
+    width: 330px;
+    height: 35px;
+    border: 1px solid #dedcdc;
+}
+
+/* .login-form2 {
+    display: flex;
+    justify-content: space-evenly;
+} */
+
+/* .login-form input[type=text] {
+    float: right;
+    width: 250px;
+    height: 35px;
+    font-size: 12px;
+} */
+
+.spacing {
+    margin-top: 10%;
+}
+
+.birthday_gender {
+    display: flex; 
+    justify-content: space-between;
+}
+
+.left-column {
+    margin-top: 0;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+
+.login {
+    margin: 0;
+    color: white;
+    background-color: #f57224;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.texts {
+    font-size: 13px;
+    color: #857e7e;
+}
+
+#check_box:hover{
+    background-color: #f8e9e9;
+}
+
+#check_box:checked{
+    background-color: #f57224;
+}
+
+.extra_class {
+    display: flex;
+    flex-direction: column;
+}
+
+.below_buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.facebook {
+    margin: 0;
+    color: white;
+    background-color: #3b5998;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 160px;
+    height: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.google {  
+    margin: 0;
+    color: white;
+    background-color: #d34836;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 160px;
+    height: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}   

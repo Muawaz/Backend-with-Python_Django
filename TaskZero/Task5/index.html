@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>Sign up Page</title>
+    </head>
+
+    <body style="margin: 0;">
+
+        <form class="login-form2">
+
+            <div>Phone Number or Email*</div><br>
+            <input id="name" placeholder="Phone Number or Email"><br>
+            <br>
+            <br>
+            <div>Password*</div><br>
+            <input id="password" placeholder="Password">
+
+            <button onclick="validateForm()" type="button" class="login">Submit</button>
+
+            <p id="error1"></p>
+            <p id="error2"></p>
+            <p id="error3"></p>
+        </form>
+
+
+        <script>
+            function validateForm() {
+                let user_name = document.getElementById("name").value;
+                let pass_word = document.getElementById("password").value;
+
+                // document.getElementById("error1").innerHTML = user_name;
+                // document.getElementById("error2").innerHTML = pass_word;
+
+                const regex_username = /^[a-zA-Z\.]+$/;
+                const regex_password = /^(?=.*[0-9])(?=.*[a-zA-Z])[\w\W]{8,}$/;
+
+                console.log(regex_username.test(user_name))
+
+                if (regex_username.test(user_name))
+                    document.getElementById("error1").innerHTML = "Valid Username"
+                
+                else 
+                    document.getElementById("error1").innerHTML = "Inalid Username"
+
+                
+                if (regex_password.test(pass_word))
+                document.getElementById("error2").innerHTML = "Valid Password"
+            
+                else 
+                    document.getElementById("error2").innerHTML = "Inalid Password"
+
+                
+                document.getElementById("error3").innerHTML = res;
+            }
+            
+        </script>
+
+    </body>
+</html>

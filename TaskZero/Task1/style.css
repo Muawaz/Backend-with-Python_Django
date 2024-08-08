@@ -1,0 +1,118 @@
+/* .header {
+    margin-top: 0; 
+    font-size: 50px; 
+    padding: 10px; 
+    color: aliceblue; 
+    background-color: rgb(69, 68, 68); 
+    text-align: center; 
+    align-content: center;
+} */
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 50%;
+    background-color: #dddddd;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #555;
+    /* text-align: center; */
+}
+
+
+li{
+    float: left; 
+    /* text-align: center; */
+}
+
+li a {
+    display: block;
+    color: #000;
+    /* text-align: center; */
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+li:first-child a:hover {
+    background-color: #dddddd;
+    color: #000;
+}
+
+.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.navbar li{
+    margin-top: 5px;
+
+}
+
+.navbar button {
+    margin: 5px;
+    float: right;
+}
+
+.navbar input[type=text] {
+    float: right;
+    padding: 6px;
+    border: none;
+    margin: 5px;
+    font-size: 17px;
+}
+.table2 {
+    padding: 10px;
+    padding-left: 20%;
+}
+
+table {
+    width: 80%;
+}
+
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+    border-radius: 5px;
+    text-align: center;
+    /* border-style: dotted; */
+}
+
+th, td {
+    background-color: rgb(130, 191, 238);
+}
+
+.top {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+
+.row {
+    background-color: rgb(48, 141, 136);
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+}
+
+.left, .right {
+    padding-left: 120px;
+    align-content: center;
+}
+
+.form {
+    background-color: rgb(222, 130, 130);
+    text-align: center;
+    padding: 20px;
+}
