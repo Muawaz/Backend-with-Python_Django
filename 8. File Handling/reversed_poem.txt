@@ -1,0 +1,4 @@
+['breeze', 'evening', 'the', 'of', 'Whispers']
+['grace', "twilight's", 'in', 'alight', 'Stars', 'trees.', 'rustling', 'the', 'through', 'Dancing']
+['quiet', 'the', 'In', 'embrace.', "night's", 'painting', 'Softly']
+['flight', 'take', 'dreams']
