@@ -8,11 +8,14 @@ import time
 def time_it(original_function):
     def wrapper(n):
         start_time = datetime.now()
+        # start_time = time.time()
         original_function(n)
         end_time = datetime.now()
+        # end_time = time.time()
 
         print("Start_time = ", str(start_time).split(" ")[1])
         print("End_time = ", str(end_time).split(" ")[1])
+
         print("time = ", end_time - start_time)
     return wrapper
 
@@ -26,4 +29,4 @@ def factorial(n):
     print(f"Factorial of {n} = {fact} \n")
     # return fact
 
-factorial(50)
+factorial(10)

@@ -10,13 +10,13 @@ def required_auth(original_function):
         original_function(access_arg)
         if(access_arg[0] == True):
             password = "12348765"
-            print(f"The desktop password for this PC = {password}")
+            print(f"The password for this Personal Computer = {password}")
         else:
             print ("Unauthorized access!")
     return wrapper
 
 @required_auth
-def display_info(access):
+def check_auth(access):
     password = int(input("Enter the PassCode = "))
 
     if(password == 1234):
@@ -28,4 +28,4 @@ def display_info(access):
 access = [False]
 
 
-display_info(access)
+check_auth(access)
