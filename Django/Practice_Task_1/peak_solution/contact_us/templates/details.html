@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <h1>
+        {{detail_list.firstname}}  
+        {{detail_list.lastname}}
+    </h1>
+
+    <p>
+        Phone:  
+        {{detail_list.phone}}
+    </p>
+    <p>
+        Email:  
+        {{detail_list.email}}
+    </p>
+    <p>
+        User Since:  
+        {{detail_list.joined_date}}
+    </p>
+
+    <p>Back to <a href="{% url 'user_view' %}"">Users List</a></p>
+    
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <h1>Current Users from the Database</h1>
+
+    <ul>
+        {% for x in user_list %}
+            <li>
+                <a href="{% url 'user_details' x.id %}"{{x.id}}>{{x.firstname}} {{x.lastname}} </a>
+            </li>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>
