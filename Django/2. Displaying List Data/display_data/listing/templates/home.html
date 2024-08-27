@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts Listing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        h1 a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-size: 1.5em;
+            transition: color 0.3s ease;
+        }
+
+        h1 a:hover {
+            color: #3498db;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 10px 0 20px;
+        }
+
+        .post-container {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<ul>
+    {% for x in posts %}
+        <li class="post-container">
+            <h1><a href='{% url "listing_detail_view" x.id %}'>{{x.id}} - {{x.title}}</a></h1>
+            <p>{{x.content}}</p>
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
