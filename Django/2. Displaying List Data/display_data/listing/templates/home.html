@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts Listing</title>
-    <style>
-        body {
+{%  extends 'master.html' %}
+
+{% block title %}
+    My tourism - Listing different venues
+{% endblock %}
+
+{% block style %}
+    body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            color: #333;
+            color: #3baaa7;
             margin: 0;
             padding: 20px;
         }
@@ -20,7 +20,7 @@
 
         h1 a {
             text-decoration: none;
-            color: #2c3e50;
+            color: #0026d4;
             font-size: 1.5em;
             transition: color 0.3s ease;
         }
@@ -42,18 +42,17 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-    </style>
-</head>
-<body>
 
-<ul>
-    {% for x in posts %}
-        <li class="post-container">
-            <h1><a href='{% url "listing_detail_view" x.id %}'>{{x.id}} - {{x.title}}</a></h1>
-            <p>{{x.content}}</p>
-        </li>
-    {% endfor %}
-</ul>
+{% endblock %}
 
-</body>
-</html>
+{% block content %}
+    <ul>
+        {% for x in posts %}
+            <li class="post-container">
+                <h1><a href='{% url "listing_detail_view" x.id %}'>{{x.id}} - {{x.title}}</a></h1>
+                <p>{{x.content}}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

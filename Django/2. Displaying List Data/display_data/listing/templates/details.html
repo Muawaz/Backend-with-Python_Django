@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Details</title>
-    <style>
-        body {
+{% extends 'master.html' %}
+
+{% block title %}
+    My tourism - Venue details
+{% endblock %}
+
+
+{% block style %}
+    body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             color: #333;
@@ -45,15 +46,13 @@
         a:hover {
             background-color: #2980b9;
         }
-    </style>
-</head>
-<body>
+{% endblock %}
 
-<div class="details-container">
-    <h1>{{post.id}} - {{post.title}}</h1>
-    <p>{{post.content}}</p>
-    <a href="{% url 'listing_view' %}">Back to Listings</a>
-</div>
 
-</body>
-</html>
+{% block content %}
+    <div class="details-container">
+        <h1>{{post.id}} - {{post.title}}</h1>
+        <p>{{post.content}}</p>
+        <a href="{% url 'listing_view' %}">Back to Listings</a>
+    </div>
+{% endblock %}
