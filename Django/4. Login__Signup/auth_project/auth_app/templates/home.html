@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}" >
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome to Our Platform</h1>
+        <p>Please sign up or log in to continue</p>
+        <div class="button-container">
+            <a href="{% url 'sign_up_view' %}" class="button signup-button">Sign Up</a>
+            <a href="{% url 'log_in_view' %}" class="button">Login</a>
+        </div>
+    </div>
+    
+</body>
+</html>
