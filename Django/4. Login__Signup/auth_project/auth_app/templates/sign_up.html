@@ -3,24 +3,45 @@
 <html lang="en">
     <title>Sign Up</title>
     <link rel="stylesheet" href="{% static 'sign_up.css' %}" >
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const form = document.getElementById('sign_up_form');
+            console.log("form", form)
+
+            form.addEventListener('submit', function(event) {
+                console.log("hello World")
+                const email = document.getElementById('email').value;
+
+                const emailPattern = /^[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,}$/;                
+
+                if(!emailPattern.test(email)) {
+                    event.preventDefault()
+                    alert('Please enter a valid email address')
+                }
+                                
+            })
+        })
+    </script>
 <body>
 
     <div class="signup-container">
         <h2>Sign Up</h2>
-        <form action="{% url 'check_sign_up' %}" method="post">
+        
+        <form action="{% url 'check_sign_up' %}"  method="post" id="sign_up_form">
             {% csrf_token %}
 
             <label for="first_name">First Name</label>
-            <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
+            <input type="text" id="first_name" name="first_name" pattern="[A-Za-z]+" title="First name should only contain alphabets" placeholder="Enter your first name" required>
     
             <label for="last_name">Last Name</label>
-            <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+            <input type="text" id="last_name" name="last_name" pattern="[A-Za-z]+" title="Last name should only contain alphabets" placeholder="Enter your last name" required>
     
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            <input type="text" id="email" name="email" pattern="^[\w\.-]+@[\w\.-]+\.(com|net|org)$" title="Please enter a valid email address" placeholder="Enter your email address" required>
     
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <input type="password" id="password" name="password" pattern="(?=.*[A-Z]).{8,}" title="Password must be at least 8 characters long and start with a capital letter." placeholder="Enter your password" required>
     
             <button type="submit">Sign Up</button>
         </form>
