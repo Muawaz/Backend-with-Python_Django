@@ -10,7 +10,14 @@ from django.http import HttpResponse
 
 def serializer_details(request):
     course = course_table.objects.all()
-    serializer = course_serializer(course)
+    serializer = course_serializer(course, many= True)
     json_data = JSONRenderer().render(serializer.data)
     
+    return HttpResponse(json_data, content_type='application/json')
+
+def serializer_details_id(request, id):
+    course = course_table.objects.get(id=id)
+    serializer = course_serializer(course)
+    json_data = JSONRenderer().render(serializer.data)
+
     return HttpResponse(json_data, content_type='application/json')

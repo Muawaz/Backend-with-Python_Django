@@ -21,4 +21,5 @@ from learning_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('courses/', views.serializer_details ),
+    path('courses/<int:id>', views.serializer_details_id ),
 ]
