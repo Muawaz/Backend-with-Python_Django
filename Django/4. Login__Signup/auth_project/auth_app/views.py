@@ -1,7 +1,16 @@
 from django.shortcuts import render
-from .models import app_model
-from django.http import HttpResponse
 import re
+
+from .models import app_model
+from .serializer import app_model_Serializer
+from rest_framework.renderers import JSONRenderer
+from django.http import HttpResponse
+
+def serializer_details(request):
+    stu = app_model.objects.all()
+    serializer = app_model_Serializer(stu)
+    json_data = JSONRenderer().render(serializer.data)
+    return HttpResponse(json_data, content_type='application/json')
 
 # Create your views here.
 
