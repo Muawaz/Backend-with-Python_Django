@@ -20,6 +20,7 @@ from learning_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('courses/', views.serializer_details ),
-    path('courses/<int:id>', views.serializer_details_id ),
+    path('courses/', views.course_list ),
+    path('courses/<int:id>', views.serializer_course_view_id ),
+    path('course-create/', views.course_create_view ),
 ]
