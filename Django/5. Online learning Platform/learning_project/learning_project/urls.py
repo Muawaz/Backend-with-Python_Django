@@ -23,4 +23,5 @@ urlpatterns = [
     path('courses/', views.course_list ),
     path('courses/<int:id>', views.serializer_course_view_id ),
     path('course-create/', views.course_create_view ),
+    path('student-create/', views.student_create_view ),
 ]
