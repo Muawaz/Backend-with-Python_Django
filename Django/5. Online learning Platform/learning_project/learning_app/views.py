@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from .models import course_table, student_table, enrollment_table
-from .serializer import CourseSerializer, StudentSerializer
+from .serializer import CourseSerializer, StudentSerializer, EnrollmentSerializer
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
@@ -51,6 +51,21 @@ def student_create_view(request):
         if serializer.is_valid():
             serializer.save()
             res = {'msg': 'Student Data created'}
+            json_data = JSONRenderer().render(res)
+            return HttpResponse(json_data, content_type='application/json')
+        json_data = JSONRenderer().render(serializer.error_messages)
+        return HttpResponse(json_data, content_type='application/json')
+    
+@csrf_exempt
+def enrollment_create_view(request):
+    if request.method == 'POST':
+        json_data = request.body
+        stream = io.BytesIO(json_data)
+        python_data = JSONParser().parse(stream)
+        serializer = enrollment_table(data = python_data)
+        if serializer.is_valid():
+            serializer.save()
+            res = {'msg': 'Enrollment Data created'}
             json_data = JSONRenderer().render(res)
             return HttpResponse(json_data, content_type='application/json')
         json_data = JSONRenderer().render(serializer.error_messages)
