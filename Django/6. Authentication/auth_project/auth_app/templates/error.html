@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Page</title>
+    <link rel="stylesheet" href="{% static 'error.css' %}">
+</head>
+<body>
+    <div class="error-container">
+        <h1>Error</h1>
+        <p>{{ message }}</p>
+        <a href="{% url 'log_in_view' %}" class="back-link">Go to the Login Page</a>
+
+    </div>
+</body>
+</html>
