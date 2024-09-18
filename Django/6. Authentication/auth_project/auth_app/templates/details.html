@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <link rel="stylesheet" href="{% static 'details.css' %}" >
+</head>
+<body>
+    <div class="container">
+        <h1>Hello, [User's Name]!</h1>
+        <p>Welcome back to your account. We’re glad to have you here!</p>
+        <button class="logout-button" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        function logout() {
+            // Your logout logic here
+            alert('Logging out...');
+            // Redirect to login page or perform other logout actions
+            window.location.href = "{% url 'log_in_view' %}"; // Replace with your actual login page URL
+        }
+    </script>
+</body>
+</html>

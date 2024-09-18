@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import json
 
 from .models import course_table, student_table, enrollment_table
 from .serializer import CourseSerializer, StudentSerializer, EnrollmentSerializer
@@ -17,6 +18,26 @@ def serializer_course_view_id(request, id):
     json_data = JSONRenderer().render(serializer.data)
 
     return HttpResponse(json_data, content_type='application/json')
+
+@csrf_exempt
+def update_student(request, student_roll):
+    if request.method == 'PUT':
+        try:
+            student = student_table.objects.get(roll = student_roll)
+        except student_table.DoesNotExist:
+            return JsonResponse({'error': 'Student not found'}, status=404)
+        
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        
+        serializer = StudentSerializer(student, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'message': 'Student updated successfully'}, status=200)
+        else:
+            return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
 def course_create_view(request):
