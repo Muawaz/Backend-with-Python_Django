@@ -9,15 +9,42 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 import io
 
+from django.views.generic import View
+from django.utils.decorators import method_decorator
+
 
 # Create your views here.
 
-def serializer_course_view_id(request, id):
-    course = course_table.objects.get(id=id)
-    serializer = CourseSerializer(course)
-    json_data = JSONRenderer().render(serializer.data)
-
-    return HttpResponse(json_data, content_type='application/json')
+@method_decorator(csrf_exempt, name='dispatch')
+class OnlineCourseApi(View):
+    def get(self, request, *args, **kwargs):
+        course_id = kwargs.get('id')
+        if course_id:
+            try:
+                course = course_table.objects.get(course_id=kwargs.get('id'))
+                serializer = CourseSerializer(course)
+                return JsonResponse(serializer.data)
+            except course_table.DoesNotExist:
+                return JsonResponse({'error': 'Course not found'}, status=404)
+        
+        else:
+            course = course_table.objects.all()
+            serializer = CourseSerializer(course, many= True)
+            return JsonResponse(serializer.data, safe=False)
+        
+    
+    def post(self, request, *args, **kwargs):
+            json_data = request.body
+            stream = io.BytesIO(json_data)
+            python_data = JSONParser().parse(stream)
+            serializer = CourseSerializer(data = python_data)
+            if serializer.is_valid():
+                serializer.save()
+                res = {'msg': 'Course Data created'}
+                json_data = JSONRenderer().render(res)
+                return HttpResponse(json_data, content_type='application/json')
+            json_data = JSONRenderer().render(serializer.error_messages)
+            return HttpResponse(json_data, content_type='application/json')
 
 @csrf_exempt
 def update_student(request, student_roll):
@@ -39,28 +66,6 @@ def update_student(request, student_roll):
         else:
             return JsonResponse(serializer.errors, status=400)
 
-@csrf_exempt
-def course_create_view(request):
-    # if request.method == 'POST':
-    #     data = JSONParser().parse(request)
-    #     serializer = course_serializer(data=data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return JsonResponse(serializer.data, status=201)
-        
-    #     return JsonResponse (serializer.errors, status=400)
-    if request.method == 'POST':
-        json_data = request.body
-        stream = io.BytesIO(json_data)
-        python_data = JSONParser().parse(stream)
-        serializer = CourseSerializer(data = python_data)
-        if serializer.is_valid():
-            serializer.save()
-            res = {'msg': 'Course Data created'}
-            json_data = JSONRenderer().render(res)
-            return HttpResponse(json_data, content_type='application/json')
-        json_data = JSONRenderer().render(serializer.error_messages)
-        return HttpResponse(json_data, content_type='application/json')
     
 @csrf_exempt
 def student_create_view(request):
@@ -93,11 +98,7 @@ def enrollment_create_view(request):
         return HttpResponse(json_data, content_type='application/json')
     
 
-def course_list(request):
-    course = course_table.objects.all()
-    serializer = CourseSerializer(course, many= True)
-    json_data = JSONRenderer().render(serializer.data)
-    return HttpResponse(json_data, content_type='application/json')
+
 
 def get_all_students(request):
     if request.method == 'GET':

@@ -8,10 +8,10 @@ import datetime
 URL = 'http://127.0.0.1:8000/course-create/'
 
 data = {
-    'course_id': 102,
-    'title':'English',
-    'description': 'learning IS AM ARE',
-    'instructor': 'Ali',
+    'course_id': 103,
+    'title':'Chemistry',
+    'description': 'Learning to bond Nitrogen and Oxygen',
+    'instructor': 'Umer Farooq',
     'duration': str(datetime.timedelta(seconds=18000)),
     }
 

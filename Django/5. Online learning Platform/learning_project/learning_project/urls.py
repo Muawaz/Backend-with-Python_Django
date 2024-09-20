@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from learning_app import views
+from learning_app.views import OnlineCourseApi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('courses/', views.course_list ),
-    path('courses/<int:id>', views.serializer_course_view_id ),
-    path('course-create/', views.course_create_view ),
-    path('student-create/', views.student_create_view ),
+    path('courses/', OnlineCourseApi.as_view(), name='course_list'),
+    path('courses/<int:id>', OnlineCourseApi.as_view(), name='course_by_id' ),
+    path('course-create/', OnlineCourseApi.as_view(), name='course_create'),
+    path('student-create/', views.student_create_view,  ),
 ]
