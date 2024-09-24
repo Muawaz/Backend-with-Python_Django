@@ -16,11 +16,16 @@ class EnrollmentSerializer(serializers.Serializer):
         model = enrollment_table
         fields = ['student', 'course', 'enrollment_date']
 
+def validate_instructor_name(name):
+    if not name.isalpha():
+        raise serializers.ValidationError("Instructor name must only contain alphabets")
+    return name
+
 class CourseSerializer(serializers.Serializer):
     course_id = serializers.CharField(max_length=10)
     title = serializers.CharField(max_length=255)
     description = serializers.CharField()
-    instructor = serializers.CharField(max_length=255)
+    instructor = serializers.CharField(max_length=255, validators=[validate_instructor_name])
     duration = serializers.DurationField()
 
     def create(self, validate_data):
@@ -33,6 +38,18 @@ class StudentSerializer(serializers.Serializer):
 
     def create(self, validate_data):
         return student_table.objects.create(**validate_data)
+    
+    def update(self, instance, validate_data):
+        instance.rollNo = validate_data.get('rollNo', instance.rollNo)
+        instance.name = validate_data.get('name', instance.name)
+        instance.city = validate_data.get('city', instance.city)
+        instance.save()
+        return instance
+    
+    def validate_rollNo(self, rollNo):
+        if rollNo < 100:
+            raise serializers.ValidationError("Roll no should be greater than 100")
+        return rollNo
 
 class EnrollmentSerializer(serializers.Serializer):
     student = serializers.PrimaryKeyRelatedField(queryset = student_table.objects.all())

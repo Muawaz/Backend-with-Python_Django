@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Create your models here.    
 
 class course_table(models.Model):
     course_id = models.IntegerField(primary_key=True,default="101")
