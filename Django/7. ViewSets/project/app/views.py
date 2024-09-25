@@ -2,8 +2,14 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .models import Student
 from .serializer import StudentSerializer
-from rest_framework.authentication import BasicAuthentication, SessionAuthentication
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from rest_framework.authentication import (
+    BasicAuthentication, 
+    SessionAuthentication, 
+    TokenAuthentication)
+from rest_framework.permissions import (
+    AllowAny, 
+    IsAuthenticated, 
+    IsAdminUser)
 
 # Create your views here.
 
