@@ -22,16 +22,3 @@ class User(AbstractUser):
         return self.first_name + " " + self.last_name
     def __str__(self):
         return self.email
-    
-    # Set related_name for groups and user_permissions
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='custom_user_set',  # Change this to whatever you prefer
-        blank=True,
-    )
-    
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='custom_user_permissions_set',  # Change this as well
-        blank=True,
-    )
