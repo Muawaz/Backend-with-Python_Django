@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from app import views
+from app.views import *
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework_simplejwt.views import (
@@ -30,6 +30,7 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('send-email/', EmailAPI.as_view()),
     # path('', include(router.urls)),
     path('', include('app.urls')),
     # path('gettoken/', obtain_auth_token),

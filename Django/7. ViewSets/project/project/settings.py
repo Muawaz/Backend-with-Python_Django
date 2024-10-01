@@ -17,6 +17,15 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+# Email Config
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  # Load from .env
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # Load from .env
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_TIMEOUT = 300  # in seconds
+DEFAULT_FROM_EMAIL = 'My Django App <{}>'.format(os.environ.get('EMAIL_HOST_USER'))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,7 +39,8 @@ SECRET_KEY = 'django-insecure-8f3@xbj**kib3kzos!&#qm)zq)s0(nx8rte66*=b$40h$9tkf&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+AUTH_USER_MODEL = 'app.User'
 
 
 # Application definition
