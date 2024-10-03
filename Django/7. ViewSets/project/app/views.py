@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from .models import Student
-from .serializer import StudentSerializer
+from .serializer import StudentSerializer, UserSerializer
 from rest_framework.authentication import (SessionAuthentication, BasicAuthentication, TokenAuthentication)
 from rest_framework.permissions import (AllowAny, IsAuthenticated, IsAdminUser)
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -13,6 +13,37 @@ from rest_framework.parsers import JSONParser
 # ------email imports
 from django.core.mail import send_mail
 from django.conf import settings
+from .emails import send_verfication_email
+from rest_framework import status
+
+
+class RegisterApi(APIView):
+    def post(self, request):
+        try:
+            data = request.data
+            print("data is : ", data)
+            serializer = UserSerializer(data = data)
+            if serializer.is_valid():
+                user = serializer.save()
+                print(user)
+                print(user.email)
+                send_verfication_email(user.email)
+                return Response({
+                    'status': 200,
+                    'message': 'Registration successfully. Check email.',
+                    'data': serializer.data,
+                }, status=status.HTTP_201_CREATED)
+            return Response({
+                    'status': 400,
+                    'message': 'Invalid data. Please try again.',
+                    'error': serializer.errors,
+                }, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            print(e)
+            return Response({
+                    'status': 500,
+                    'message': 'Internal Server Error',
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class EmailAPI(APIView):
