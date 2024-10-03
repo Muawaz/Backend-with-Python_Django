@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'sign_up.css' %}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('sign_up_form');
+
+            form.addEventListener('submit', function(event) {
+                const email = document.getElementById('email').value;
+                const emailPattern = /^[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,}$/;
+
+                if(!emailPattern.test(email)) {
+                    event.preventDefault();
+                    alert('Please enter a valid email address');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        
+        <form action="{% url 'log_in_view' %}" method="post" id="sign_up_form">
+            {% csrf_token %}
+            
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" 
+                   pattern="[a-zA-Z0-9]+" 
+                   title="Username can only contain alphanumeric characters." 
+                   placeholder="Enter your username" required>
+            
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" 
+                   pattern="[A-Za-z]+" 
+                   title="First name should only contain alphabets." 
+                   placeholder="Enter your first name" required>
+            
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" 
+                   pattern="^[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,}$" 
+                   title="Please enter a valid email address." 
+                   placeholder="Enter your email address" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" 
+                   minlength="3" 
+                   title="Password must be at least 3 characters long." 
+                   placeholder="Enter your password" required>
+            
+            <button type="submit">Sign Up</button>
+            <p>Already have an account? <a href="{% url 'log_in_view' %}">Login here</a>.</p>
+        </form>
+    </div>
+</body>
+</html>

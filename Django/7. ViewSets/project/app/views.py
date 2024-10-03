@@ -17,6 +17,19 @@ from .emails import send_verfication_email
 from rest_framework import status
 
 
+def home_view(request):
+    return render(request, 'home.html')
+
+def sign_up_view(request):
+    return render(request, 'sign_up.html')
+
+def log_in_view(request):
+    return render(request, 'log_in.html')
+
+def details_view(request):
+    return render(request, 'details.html')
+
+
 class RegisterApi(APIView):
     def post(self, request):
         try:
