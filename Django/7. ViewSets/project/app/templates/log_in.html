@@ -6,13 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
     <link rel="stylesheet" href="{% static 'log_in.css' %}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('login_form');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                // Create a data object for the login credentials
+                const data = {
+                    username: username,
+                    password: password
+                };
+
+                // Get the submit button
+                const button = event.target.querySelector('button');
+                button.innerHTML = 'Logging in...'; // Change button text to indicate loading
+                button.disabled = true; // Disable the button to prevent multiple submissions
+
+                // Send data to the login API
+                fetch('{% url "login_api" %}', {  // Ensure this URL matches your login API endpoint
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', // Set content type to JSON
+                        'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+                    },
+                    body: JSON.stringify(data) // Convert data to JSON
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(err => { throw err; });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message); // Show success message
+                    // Redirect to the dashboard or another page as needed
+                    window.location.href = '{% url "dashboard_view" %}'; // Update with your dashboard URL
+                })
+                .catch(error => {
+                    alert('Error: ' + error.message); // Handle errors
+                })
+                .finally(() => {
+                    button.innerHTML = 'Log In'; // Reset button text after the request
+                    button.disabled = false; // Re-enable the button
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="login-container">
         <div class="form-wrapper">
             <h2>Log In</h2>
             
-            <form action="{% url 'sign_up_view' %}" method="post" id="login_form">
+            <form method="post" id="login_form">
                 {% csrf_token %}
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter your username" required>

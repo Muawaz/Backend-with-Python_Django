@@ -1,4 +1,5 @@
 {% load static %}
+{% csrf_token %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +10,58 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('sign_up_form');
-
+    
             form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+    
                 const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
                 const emailPattern = /^[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,}$/;
-
-                if(!emailPattern.test(email)) {
-                    event.preventDefault();
+    
+                // Validate email format
+                if (!emailPattern.test(email)) {
                     alert('Please enter a valid email address');
+                    return;
                 }
+    
+                // Create a data object for the required fields only
+                const data = {
+                    email: email,
+                    password: password
+                };
+    
+                // Get the submit button
+                const button = document.querySelector('button[type="submit"]');
+                button.textContent = 'Signing Up...'; // Change button text to indicate loading
+                button.disabled = true; // Disable the button to prevent multiple submissions
+    
+                // Send data to the RegisterApi
+                fetch('{% url "register_api" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', // Set content type to JSON
+                        'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token
+                    },
+                    body: JSON.stringify(data) // Convert data to JSON
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(err => { throw err; });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message); // Show success message
+                    window.location.href = '{% url "log_in_view" %}'; // Redirect to the login page
+                })
+                .catch(error => {
+                    alert('Error: ' + error.message); // Handle errors
+                })
+                .finally(() => {
+                    // Reset button text and enable it again after response
+                    button.textContent = 'Sign Up'; // Reset text to original
+                    button.disabled = false; // Re-enable the button
+                });
             });
         });
     </script>
@@ -26,7 +70,7 @@
     <div class="signup-container">
         <h2>Sign Up</h2>
         
-        <form action="{% url 'log_in_view' %}" method="post" id="sign_up_form">
+        <form method="post" id="sign_up_form">
             {% csrf_token %}
             
             <label for="username">Username</label>

@@ -15,6 +15,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .emails import send_verfication_email
 from rest_framework import status
+from rest_framework_simplejwt.tokens import UntypedToken, TokenError
+from django.shortcuts import redirect
 
 
 def home_view(request):
@@ -29,7 +31,25 @@ def log_in_view(request):
 def details_view(request):
     return render(request, 'details.html')
 
+from django.contrib.auth.decorators import login_required  # Import login_required
 
+@login_required  # Ensure the user is logged in
+def dashboard_view(request):
+    return render(request, 'dashboard.html', {'user': request.user})
+
+from django.contrib.auth import authenticate
+
+class LoginApi(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            return Response({'status': 200, 'message': 'Login successful.'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'status': 400, 'message': 'Invalid username or password.'}, status=status.HTTP_400_BAD_REQUEST)
+        
 class RegisterApi(APIView):
     def post(self, request):
         try:
@@ -87,20 +107,26 @@ class EmailAPI(APIView):
             fail_silently=False,
             )
             return Response({'msg': sent_mail}, status=200)
-        # subject = 'Account Verification'
-        # txt_ = f'Click the link below to verify your account:\n'
-        # from_email = settings.DEFAULT_FROM_EMAIL
-        # # recipient_list = self.request.GET.get('recipient_list')
-        # json_data = request.body
-        # stream = io.BytesIO(json_data)
-        # python_data = JSONParser().parse(stream)
-        # recipient_list = python_data
-        # print("txt_ : ", txt_)
-        # print("from_email : ", from_email)
-        # print("recipient_list : ", recipient_list)
         
 
+class VerifyAccount(APIView):
+    def get(self, request):
+        token = request.query_params.get('token')
+        try:
+            # Validate the token
+            UntypedToken(token)
+            # If valid, redirect to the login page
+            return redirect('log_in_view')  # Ensure this matches your URL name for the login page
 
+        except TokenError:
+            # If invalid, redirect to the signup page
+            return redirect('sign_up_view')  # Ensure this matches your URL name for the signup page
+
+        except Exception as e:
+            return Response({
+                'status': 500,
+                'message': 'INTERNAL SERVER ERROR',
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 # Create your views here.
 

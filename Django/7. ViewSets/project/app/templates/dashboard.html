@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your Dashboard</h1>
+    </header>
+
+    <main>
+        <section class="user-info">
+            <h2>Your Information</h2>
+            <p>Username: <strong>{{ user.username }}</strong></p>
+            <p>Email: <strong>{{ user.email }}</strong></p>
+            <!-- Add more user-related information as needed -->
+        </section>
+
+        <section class="content">
+            <h2>Recent Activities</h2>
+            <p>Here you can display recent activities or updates related to the user.</p>
+            <!-- Add more content related to user activities -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ViewSets. All rights reserved.</p>
+    </footer>
+</body>
+</html>

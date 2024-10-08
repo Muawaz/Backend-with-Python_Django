@@ -32,7 +32,7 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path('', include('app.urls')),
     path('admin/', admin.site.urls),
-    path('register/', RegisterApi.as_view()),
+    # path('register/', RegisterApi.as_view()),
     # path('', include(router.urls)),
     # path('gettoken/', obtain_auth_token),
     path('api/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
